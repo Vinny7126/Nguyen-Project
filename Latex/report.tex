@@ -405,57 +405,38 @@ To recover the original plaintext, the inverse key matrix is applied to the ciph
 \end{equation}
 Because the key matrix satisfies the invertibility conditions discussed earlier, decryption correctly reverses the encryption process.
 
-\section{Manual Verification}
-\textbf{Objective:} Manually verify the encryption process of the Hill Cipher by encrypting the first three letters of the dataset ``TOS'' using the project Key Matrix, showing every computational step.
+\subsection{Manual Verification (Subset ``TOS'')}
+To verify the logic before large-scale implementation, we manually encrypt the first three letters of the dataset: \textbf{``TOS''} (from ``To Sherlock...'').
 
-\subsection{Data Setup}
-We use the standard Hill Cipher mapping:
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|c|c|c|}
-\hline
-Letter & A & B & C & ... & T & O & S \\
-\hline
-Number & 0 & 1 & 2 & ... & 19 & 14 & 18 \\
-\hline
-\end{tabular}
-\end{center}
-Therefore, the mapping for ``TOS'' is:
-\[ \text{TOS} \rightarrow 19, 14, 18 \]
+\textbf{Step 1: Convert to Vectors} \\
+Using the mapping $A=0, B=1, \dots$, we convert ``TOS'':
+\[
+T \to 19, \quad O \to 14, \quad S \to 18 \implies P = \begin{pmatrix} 19 \\ 14 \\ 18 \end{pmatrix}
+\]
 
-Let the plaintext vector be:
-\begin{equation}
-    P = \begin{bmatrix} 19 \\ 14 \\ 18 \end{bmatrix}
-\end{equation}
+\textbf{Step 2: Linear Transformation ($C = KP$)} \\
+We multiply by our Key Matrix $K$:
+\[
+\begin{pmatrix} C_1 \\ C_2 \\ C_3 \end{pmatrix} = 
+\begin{pmatrix} 1 & 2 & 3 \\ 0 & 1 & 4 \\ 5 & 6 & 0 \end{pmatrix} 
+\begin{pmatrix} 19 \\ 14 \\ 18 \end{pmatrix}
+\]
 
-\subsection{Matrix Multiplication Step}
-Assuming a general $3 \times 3$ key matrix $K$:
-\begin{equation}
-    K = \begin{bmatrix} 
-    k_{11} & k_{12} & k_{13} \\ 
-    k_{21} & k_{22} & k_{23} \\ 
-    k_{31} & k_{32} & k_{33} 
-    \end{bmatrix}
-\end{equation}
-
-The encryption calculation $C = K \cdot P \pmod{26}$ proceeds as follows:
-\begin{equation}
-    \begin{bmatrix} C_1 \\ C_2 \\ C_3 \end{bmatrix} = 
-    \begin{bmatrix} 
-    k_{11} & k_{12} & k_{13} \\ 
-    k_{21} & k_{22} & k_{23} \\ 
-    k_{31} & k_{32} & k_{33} 
-    \end{bmatrix} 
-    \begin{bmatrix} 19 \\ 14 \\ 18 \end{bmatrix}
-\end{equation}
-
-Expanding the linear combinations:
+\textbf{Step 3: Calculation} \\
 \begin{align*}
-    C_1 &= (19k_{11} + 14k_{12} + 18k_{13}) \pmod{26} \\
-    C_2 &= (19k_{21} + 14k_{22} + 18k_{23}) \pmod{26} \\
-    C_3 &= (19k_{31} + 14k_{32} + 18k_{33}) \pmod{26}
+C_1 &= (1)(19) + (2)(14) + (3)(18) = 19 + 28 + 54 = 101 \\
+C_2 &= (0)(19) + (1)(14) + (4)(18) = 0 + 14 + 72 = 86 \\
+C_3 &= (5)(19) + (6)(14) + (0)(18) = 95 + 84 + 0 = 179
 \end{align*}
 
-The resulting numbers $C_1, C_2, C_3$ are then converted back to their corresponding letters using the standard mapping to produce the final ciphertext.
+\textbf{Step 4: Modulo 26 Reduction} \\
+\begin{align*}
+C_1 &= 101 \pmod{26} \equiv 23 \quad (\text{Letter } X) \\
+C_2 &= 86 \pmod{26} \equiv 8 \quad (\text{Letter } I) \\
+C_3 &= 179 \pmod{26} \equiv 23 \quad (\text{Letter } X)
+\end{align*}
+
+\textbf{Result:} The plaintext \textbf{``TOS''} encrypts to the ciphertext \textbf{``XIX''}.
 
 % =========================================================
 % CHAPTER 4: CRYPTANALYSIS (VULNERABILITIES)
@@ -592,7 +573,28 @@ While the Hill Cipher is susceptible to known-plaintext attacks and is rarely us
 \renewcommand{\bibname}{Reference} % Rename default heading to "Reference"
 
 \begin{thebibliography}{9}
+% 1. The Original Paper (History)
+\bibitem{hill1929}
+Lester S. Hill, 
+``Cryptography in an Algebraic Alphabet,'' 
+\textit{The American Mathematical Monthly}, vol. 36, no. 6, pp. 306--312, 1929.
 
+% 2. The Dataset (Sherlock Holmes)
+\bibitem{sherlock}
+Arthur Conan Doyle, 
+\textit{The Adventures of Sherlock Holmes}, 
+Project Gutenberg, 1999. [Online]. Available: \url{https://www.gutenberg.org/files/1661/1661-0.txt}. [Accessed: Jan. 2026].
+
+% 3. Python/NumPy (The Tools)
+\bibitem{numpy}
+Charles R. Harris et al., 
+``Array programming with NumPy,'' 
+\textit{Nature}, vol. 585, pp. 357--362, 2020.
+
+% 4. General Linear Algebra Textbook (Good to include for theory)
+\bibitem{lay}
+David C. Lay, Steven R. Lay, and Judi J. McDonald, 
+\textit{Linear Algebra and Its Applications}, 5th ed., Pearson, 2015.
 
 \end{thebibliography}
 

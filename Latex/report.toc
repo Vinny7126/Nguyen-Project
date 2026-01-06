@@ -22,9 +22,7 @@
 \contentsline {subsection}{\numberline {3.3.1}Plaintext and Ciphertext Representation}{8}{subsection.3.3.1}%
 \contentsline {subsection}{\numberline {3.3.2}Encryption Formula}{8}{subsection.3.3.2}%
 \contentsline {subsection}{\numberline {3.3.3}Decryption Formula}{8}{subsection.3.3.3}%
-\contentsline {section}{\numberline {3.4}Manual Verification}{9}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}Data Setup}{9}{subsection.3.4.1}%
-\contentsline {subsection}{\numberline {3.4.2}Matrix Multiplication Step}{9}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.3.4}Manual Verification (Subset ``TOS'')}{9}{subsection.3.3.4}%
 \contentsline {chapter}{\numberline {4}\MakeUppercase []{Cryptanalysis (Vulnerabilities)}}{10}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Known-Plaintext Attack}{10}{section.4.1}%
 \contentsline {section}{\numberline {4.2}Linearity Weakness}{10}{section.4.2}%
