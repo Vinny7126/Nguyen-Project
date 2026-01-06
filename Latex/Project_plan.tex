@@ -1,0 +1,166 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{amsmath} % For matrices
+\usepackage{amsfonts} % For math symbols
+\usepackage{hyperref} % For links
+\usepackage{enumitem} % For better list formatting
+\usepackage{titlesec} % To format section titles
+
+% Page Geometry
+\geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=25mm,
+ top=25mm,
+}
+
+% Title Formatting
+\title{\textbf{Project Plan: Hill Ciphers in Encryption} \\ \large Linear Algebra Course Project}
+\author{Team Leader: [Ngo Binh Nguyen]}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Objective}
+To explain the mathematical theory behind the Hill Cipher, implement it using Python on a real text dataset, and analyze the results to demonstrate how Linear Algebra secures information.
+
+\section*{Topic Overview: What is the Hill Cipher?}
+
+\textbf{The Core Concept:} \\
+Our project explores the intersection of \textbf{Linear Algebra} and \textbf{Cryptography}. While simple codes replace one letter with another (e.g., A becomes Z), the Hill Cipher is more advanced: it uses \textbf{Matrix Multiplication} to encrypt blocks of letters (polygraphic substitution) simultaneously.
+
+\vspace{0.3cm}
+\textbf{How it Works (The Math):}
+\begin{enumerate}
+    \item \textbf{Convert:} We turn text (e.g., ``TOS'') into column vectors based on the alphabet ($A=0, B=1, \dots$).
+    \item \textbf{Encrypt:} We multiply these vectors by our project's \textbf{Key Matrix ($K$)}. This transforms the numbers linearly.
+    \item \textbf{Modulus:} We apply modulo 26 (the size of the alphabet) to keep the results within the range of A-Z.
+    \item \textbf{Decrypt:} To read the message, we multiply the encrypted vector by the \textbf{Inverse Matrix ($K^{-1}$)}.
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Our Mission:}
+We are proving that Linear Algebra works for security.
+\begin{itemize}
+    \item \textbf{The Theory Team} will explain the math and manually verify the encryption of the string "TOS" using our specific $3 \times 3$ matrix to prove the logic holds up.
+    \item \textbf{The Implementation Team} will scale this up using Python to encrypt the entire text of \textit{Sherlock Holmes} and analyze how the letter frequencies change to hide information.
+\end{itemize}
+
+\hrule
+\vspace{0.5cm}
+
+\section{Report Structure (Table of Contents)}
+The final report will adhere to the following structure:
+
+\begin{itemize}[leftmargin=1.5cm]
+    \item \textbf{ABSTRACT} (Executive Summary)
+    \item \textbf{CHAPTER 1: OVERVIEW}
+    \begin{itemize}
+        \item 1.1 History of Cryptography (Lester S. Hill, 1929).
+        \item 1.2 Problem Definition: Why Simple Substitution Ciphers fail (Frequency Analysis).
+        \item 1.3 The Solution: Polygraphic Substitution via Linear Algebra.
+    \end{itemize}
+    \item \textbf{CHAPTER 2: MATHEMATICAL FOUNDATIONS}
+    \begin{itemize}
+        \item 2.1 Modular Arithmetic ($\mathbb{Z}_{26}$).
+        \item 2.2 Matrix Operations as Linear Transformations.
+        \item 2.3 Invertibility \& The Key Matrix (Conditions for $\det(K)$).
+    \end{itemize}
+    \item \textbf{CHAPTER 3: THE HILL CIPHER ALGORITHM}
+    \begin{itemize}
+        \item 3.1 Key Generation.
+        \item 3.2 Encryption Process ($C = K \cdot P \pmod{26}$).
+        \item 3.3 Decryption Process ($P = K^{-1} \cdot C \pmod{26}$).
+        \item 3.4 Manual Verification (Hand calculation of subset ``TOS'').
+    \end{itemize}
+    \item \textbf{CHAPTER 4: CRYPTANALYSIS (VULNERABILITIES)}
+    \begin{itemize}
+        \item 4.1 Known Plaintext Attack (Solving $Y = KX$).
+        \item 4.2 The ``Linearity'' Weakness in modern cryptography.
+    \end{itemize}
+    \item \textbf{CHAPTER 5: CASE STUDY - PYTHON IMPLEMENTATION}
+    \begin{itemize}
+        \item 5.1 Dataset Description (\textit{Sherlock Holmes}).
+        \item 5.2 Methodology (Data Cleaning \& Code).
+        \item 5.3 Results \& Visualization (Histograms).
+        \item 5.4 Interpretation (Analysis of flattened distribution).
+    \end{itemize}
+    \item \textbf{CHAPTER 6: CONCLUSION}
+    \item \textbf{REFERENCES}
+\end{itemize}
+
+\newpage
+
+\section{Role Assignments}
+
+\subsection*{Team 1: Theory \& Mathematics (3 Members)}
+\textit{Focus: Writing the technical content for Chapters 1, 2, 3, and 4.}
+
+\begin{itemize}
+    \item \textbf{Member 1: The Theorist (Context \& Foundations)}
+    \begin{itemize}
+        \item \textbf{Chapter 1 (Overview):} Write the history of Hill Cipher and the ``Problem Definition'' (Frequency Analysis).
+        \item \textbf{Chapter 2 (Foundations):} Define the ``Alphabet Space'' ($\mathbb{Z}_{26}$) and Linear Transformations.
+    \end{itemize}
+    
+    \item \textbf{Member 2: The Algorithmist (The Core Logic)}
+    \begin{itemize}
+        \item \textbf{Chapter 3.1 - 3.3:} Explain the Key Matrix rules ($\det(K) \neq 0$ and $\gcd(\det(K), 26) = 1$).
+        \item Present formal equations for Encryption ($C = KP$) and Decryption ($P = K^{-1}C$).
+    \end{itemize}
+
+    \item \textbf{Member 3: The Analyst (Verification \& Security)}
+    \begin{itemize}
+        \item \textbf{Chapter 3.4 (Manual Verification):} Take the first three letters of the dataset (\textbf{``TOS''}), convert to vectors, and encrypt them \textbf{by hand} using the project Key Matrix. Show every step.
+        \item \textbf{Chapter 4 (Cryptanalysis):} Write the section on ``Vulnerabilities'' (Known Plaintext Attacks).
+    \end{itemize}
+\end{itemize}
+
+\subsection*{Team 2: Implementation \& Reporting (2 Members)}
+\textit{Focus: Coding the solution, analyzing results, and compiling the final report.}
+
+\begin{itemize}
+    \item \textbf{Member 4: The Leader (Implementation \& Formatting)}
+    \begin{itemize}
+        \item \textbf{Chapter 5.1 - 5.3:} Write Python script to encrypt the \textit{Sherlock Holmes} dataset. Generate Histograms (Original vs. Encrypted).
+        \item \textbf{Compilation:} Compile all members' work into the final LaTeX report.
+    \end{itemize}
+
+    \item \textbf{Member 5: The Storyteller (Interpretation \& Conclusion)}
+    \begin{itemize}
+        \item \textbf{Abstract:} Write the executive summary.
+        \item \textbf{Chapter 5.4 (Interpretation):} Analyze the histograms generated by Member 4. Explain \textit{why} the flattened distribution proves security.
+        \item \textbf{Chapter 6 (Conclusion):} Summarize findings and limitations.
+    \end{itemize}
+\end{itemize}
+
+\section{Project Resources}
+
+\subsection*{1. The Key Matrix ($K$)}
+This matrix must be used for all manual calculations and Python code. Do not change it.
+\[
+K = \begin{pmatrix} 
+1 & 2 & 3 \\
+0 & 1 & 4 \\
+5 & 6 & 0 
+\end{pmatrix}
+\]
+
+\textbf{Why must we use this specific matrix?}
+\begin{itemize}
+    \item \textbf{Consistency:} The manual math result (Chapter 3) must match the Python result (Chapter 5) exactly. If we use different matrices, the project fails verification.
+    \item \textbf{Simplicity:} This matrix was chosen because its Determinant is 1. This makes the manual calculation of the Inverse Matrix ($K^{-1}$) much easier for Member 3, as it avoids complex modular fractions.
+    \item \textbf{Validity:} This matrix is guaranteed to be invertible modulo 26 (Safe to use).
+\end{itemize}
+
+\subsection*{2. The Dataset}
+\begin{itemize}
+    \item \textbf{Source:} Project Gutenberg
+    \item \textbf{Title:} \textit{The Adventures of Sherlock Holmes}
+    \item \textbf{Link:} \url{https://www.gutenberg.org/files/1661/1661-0.txt}
+\end{itemize}
+
+\end{document}
